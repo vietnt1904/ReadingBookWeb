@@ -13,23 +13,23 @@ import java.util.Date;
 public class Category {
     int categoryID;
     String categoryName;
-    String Description;
+    String description;
     String image;
     Date create_At;
 
     public Category() {
     }
 
-    public Category(String categoryName, String Description, String image) {
+    public Category(String categoryName, String description, String image) {
         this.categoryName = categoryName;
-        this.Description = Description;
+        this.description = description;
         this.image = image;
     }
 
-    public Category(int categoryID, String categoryName, String Description, String image, Date create_At) {
+    public Category(int categoryID, String categoryName, String description, String image, Date create_At) {
         this.categoryID = categoryID;
         this.categoryName = categoryName;
-        this.Description = Description;
+        this.description = description;
         this.image = image;
         this.create_At = create_At;
     }
@@ -51,11 +51,11 @@ public class Category {
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
-    public void setDescription(String Description) {
-        this.Description = Description;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getImage() {

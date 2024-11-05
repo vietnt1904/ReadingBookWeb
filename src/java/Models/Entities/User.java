@@ -14,6 +14,7 @@ public class User {
     int userID;
     String userName;
     int age;
+    int roleID;
     String address;
     Date birthday;
     String email;
@@ -25,9 +26,11 @@ public class User {
     public User() {
     }
 
-    public User(String userName, int age, String address, Date birthday, String email, String phoneNumber, String image, String description) {
+    public User(String userName, int age, int roleID, String address, Date birthday
+            , String email, String phoneNumber, String image, String description) {
         this.userName = userName;
         this.age = age;
+        this.roleID = roleID;
         this.address = address;
         this.birthday = birthday;
         this.email = email;
@@ -36,10 +39,12 @@ public class User {
         this.description = description;
     }
 
-    public User(int userID, String userName, int age, String address, Date birthday, String email, String phoneNumber, String image, String description, Date create_At) {
+    public User(int userID, String userName, int age, int roleID, String address, Date birthday
+            , String email, String phoneNumber, String image, String description, Date create_At) {
         this.userID = userID;
         this.userName = userName;
         this.age = age;
+        this.roleID = roleID;
         this.address = address;
         this.birthday = birthday;
         this.email = email;
@@ -71,6 +76,14 @@ public class User {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public int getRoleID() {
+        return roleID;
+    }
+
+    public void setRoleID(int roleID) {
+        this.roleID = roleID;
     }
 
     public String getAddress() {
