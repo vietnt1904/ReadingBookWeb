@@ -57,8 +57,9 @@ public class AuthorDAO extends MyDAO {
 
     public void update(Author a) {
         xSql = "update Authors set AuthorName = N'" + a.getAuthorName()
-                + "', BirthYear = " + a.getBirthYear() + ", Image = '" 
-                + a.getImage() + "', Description = N'" + a.getDescription() + "')";
+                + "', BirthYear = " + a.getBirthYear() + ", Image = '"
+                + a.getImage() + "', Description = N'" + a.getDescription()
+                + "' where AuthorID = " + a.getAuthorID();
         try {
             ps = con.prepareStatement(xSql);
             rs = ps.executeQuery();
@@ -69,8 +70,8 @@ public class AuthorDAO extends MyDAO {
             System.out.println(e);
         }
     }
-    
-    public List<Author> getAllAuthors(){
+
+    public List<Author> getAllAuthors() {
         List<Author> lists = new ArrayList<>();
         xSql = "select * from Authors";
         try {

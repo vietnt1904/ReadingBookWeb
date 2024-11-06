@@ -55,7 +55,8 @@ public class CategoryDAO extends MyDAO {
     
     public void update(Category c) {
         xSql = "update Categories set CategoryName = N'" + c.getCategoryName() 
-                + "', Description = N'" + c.getDescription() + "', Image = '" + c.getImage() + "')";
+                + "', Description = N'" + c.getDescription() + "', Image = '" 
+                + c.getImage() + "' where CategoryID = " + c.getCategoryID();
         try {
             ps = con.prepareStatement(xSql);
             rs = ps.executeQuery();
