@@ -18,7 +18,7 @@
             <h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">Sign in</h2>
             <p class="text-sm text-gray-500 dark:text-gray-400">Enter your email and password to access your account</p>
         </div>
-        <form action="signin" method="POST" class="space-y-4">
+        <form action="login" method="POST" class="space-y-4">
             <div class="space-y-2">
                 <label for="email" class="text-sm font-medium text-gray-700 dark:text-gray-200">Email</label>
                 <input id="phone" name="phone" required
@@ -45,7 +45,7 @@
         </div>
         <div class="text-sm text-center text-gray-500 dark:text-gray-400">
             Don't have an account?
-            <a href="signup.jsp" class="font-medium text-blue-600 hover:underline dark:text-blue-400">Sign up</a>
+            <a href="#" class="font-medium text-blue-600 hover:underline dark:text-blue-400">Sign up</a>
         </div>
     </div>
 </body>

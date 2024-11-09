@@ -11,8 +11,11 @@ import java.util.Date;
  * @author VIET
  */
 public class User {
+
     int userID;
     String userName;
+    String password;
+    String fullName;
     int age;
     int roleID;
     String address;
@@ -26,9 +29,12 @@ public class User {
     public User() {
     }
 
-    public User(String userName, int age, int roleID, String address, Date birthday
-            , String email, String phoneNumber, String image, String description) {
+    public User(String userName, String password, String fullName,
+             int age, int roleID, String address, Date birthday,
+             String email, String phoneNumber, String image, String description) {
         this.userName = userName;
+        this.password = password;
+        this.fullName = fullName;
         this.age = age;
         this.roleID = roleID;
         this.address = address;
@@ -39,10 +45,13 @@ public class User {
         this.description = description;
     }
 
-    public User(int userID, String userName, int age, int roleID, String address, Date birthday
-            , String email, String phoneNumber, String image, String description, Date create_At) {
+    public User(int userID, String userName, String password, String fullName,
+             int age, int roleID, String address, Date birthday, String email,
+             String phoneNumber, String image, String description, Date create_At) {
         this.userID = userID;
         this.userName = userName;
+        this.password = password;
+        this.fullName = fullName;
         this.age = age;
         this.roleID = roleID;
         this.address = address;
@@ -53,7 +62,7 @@ public class User {
         this.description = description;
         this.create_At = create_At;
     }
-    
+
     public int getUserID() {
         return userID;
     }
@@ -68,6 +77,22 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public int getAge() {
@@ -141,6 +166,5 @@ public class User {
     public void setCreate_At(Date create_At) {
         this.create_At = create_At;
     }
-    
-    
+
 }

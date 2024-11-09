@@ -25,8 +25,10 @@ public class UserDAO extends MyDAO {
             while (rs.next()) {
                 int userID = rs.getInt("USerID");
                 String userName = rs.getNString("UserName");
+                String password = rs.getNString("Password");
                 int age = rs.getInt("Age");
-                int roleID = rs.getInt("roleID");
+                String fullName = rs.getNString("FullName");
+                int roleID = rs.getInt("RoleID");
                 String address = rs.getNString("Address");
                 Date birthday = rs.getDate("Birthday");
                 String email = rs.getString("Email");
@@ -35,7 +37,7 @@ public class UserDAO extends MyDAO {
                 String description = rs.getNString("Description");
                 Date create_At = rs.getDate("Create_At");
 
-                user = new User(userID, userName, age, roleID, address, birthday,
+                user = new User(userID, userName, password, fullName, age, roleID, address, birthday,
                         email, phoneNumber, image, description, create_At);
             }
             ps.close();
@@ -47,10 +49,10 @@ public class UserDAO extends MyDAO {
     }
 
     public void insert(User u) {
-        xSql = "insert into Users(UserName, Age, RoleID, Address, Birthday, Email"
-                + ", PhoneNumber, Image, Description) values (N'" + u.getUserName()
-                + "', " + u.getAge() + ", " + u.getRoleID() + ", N'" + u.getAddress()
-                + "', '" + u.getBirthday() + "', '" + u.getEmail() + "', '"
+        xSql = "insert into Users(UserName, Password, Age, FullName, RoleID, Address, Birthday, Email"
+                + ", PhoneNumber, Image, Description) values (N'" + u.getUserName() + "', N'"
+                + u.getPassword() + "', N'" + u.getFullName() + "', " + u.getAge() + ", " + u.getRoleID()
+                + ", N'" + u.getAddress() + "', '" + u.getBirthday() + "', '" + u.getEmail() + "', '"
                 + u.getPhoneNumber() + "', '" + u.getImage() + "', N'" + u.getDescription() + "')";
         try {
             ps = con.prepareStatement(xSql);
@@ -64,10 +66,12 @@ public class UserDAO extends MyDAO {
     }
 
     public void update(User u) {
-        xSql = "update Users set UserName = N'" + u.getUserName()
-                + "', Age = " + u.getAge() + ", RoleID = " + u.getRoleID() + ", Address = N'" + u.getAddress()
-                + "', Birthday = '" + u.getBirthday() + "', Email = '" + u.getEmail() + "', PhoneNumber = '"
-                + u.getPhoneNumber() + "', Image = '" + u.getImage() + "', Description = N'" + u.getDescription() + "')";
+        xSql = "update Users set UserName = N'" + u.getUserName() + "', Password = N'" 
+                + u.getPassword() + "', FullName = N'" + u.getFullName() + "', Age = " 
+                + u.getAge() + ", RoleID = " + u.getRoleID() + ", Address = N'" 
+                + u.getAddress() + "', Birthday = '" + u.getBirthday() + "', Email = '" 
+                + u.getEmail() + "', PhoneNumber = '" + u.getPhoneNumber() + "', Image = '" 
+                + u.getImage() + "', Description = N'" + u.getDescription() + "')";
         try {
             ps = con.prepareStatement(xSql);
             rs = ps.executeQuery();
@@ -88,8 +92,10 @@ public class UserDAO extends MyDAO {
             while (rs.next()) {
                 int userID = rs.getInt("USerID");
                 String userName = rs.getNString("UserName");
+                String password = rs.getNString("Password");
+                String fullName = rs.getNString("FullName");
                 int age = rs.getInt("Age");
-                int roleID = rs.getInt("roleID");
+                int roleID = rs.getInt("RoleID");
                 String address = rs.getNString("Address");
                 Date birthday = rs.getDate("Birthday");
                 String email = rs.getString("Email");
@@ -98,8 +104,8 @@ public class UserDAO extends MyDAO {
                 String description = rs.getNString("Description");
                 Date create_At = rs.getDate("Create_At");
 
-                User user = new User(userID, userName, age, roleID, address, birthday,
-                        email, phoneNumber, image, description, create_At);
+                User user = new User(userID, userName, password, fullName, age, roleID
+                        , address, birthday, email, phoneNumber, image, description, create_At);
 
                 lists.add(user);
             }
@@ -112,7 +118,7 @@ public class UserDAO extends MyDAO {
     }
 
     public User getUserByPhone(String phoneNumberMain) {
-        xSql = "select * from Users where PhoneNumber = " + phoneNumberMain;
+        xSql = "select * from Users where PhoneNumber = '" + phoneNumberMain + "'";
         User user = new User();
         try {
             ps = con.prepareStatement(xSql);
@@ -120,8 +126,10 @@ public class UserDAO extends MyDAO {
             while (rs.next()) {
                 int userID = rs.getInt("USerID");
                 String userName = rs.getNString("UserName");
+                String password = rs.getNString("Password");
+                String fullName = rs.getNString("FullName");
                 int age = rs.getInt("Age");
-                int roleID = rs.getInt("roleID");
+                int roleID = rs.getInt("RoleID");
                 String address = rs.getNString("Address");
                 Date birthday = rs.getDate("Birthday");
                 String email = rs.getString("Email");
@@ -130,8 +138,8 @@ public class UserDAO extends MyDAO {
                 String description = rs.getNString("Description");
                 Date create_At = rs.getDate("Create_At");
 
-                user = new User(userID, userName, age, roleID, address, birthday,
-                        email, phoneNumber, image, description, create_At);
+                user = new User(userID, userName, password, fullName, age, roleID, address
+                        , birthday, email, phoneNumber, image, description, create_At);
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -140,7 +148,7 @@ public class UserDAO extends MyDAO {
     }
 
     public User getUserByEmail(String emailMain) {
-        xSql = "select * from Users where Email = " + emailMain;
+        xSql = "select * from Users where Email = '" + emailMain + "'";
         User user = new User();
         try {
             ps = con.prepareStatement(xSql);
@@ -148,8 +156,10 @@ public class UserDAO extends MyDAO {
             while (rs.next()) {
                 int userID = rs.getInt("USerID");
                 String userName = rs.getNString("UserName");
+                String password = rs.getNString("Password");
+                String fullName = rs.getNString("FullName");
                 int age = rs.getInt("Age");
-                int roleID = rs.getInt("roleID");
+                int roleID = rs.getInt("RoleID");
                 String address = rs.getNString("Address");
                 Date birthday = rs.getDate("Birthday");
                 String email = rs.getString("Email");
@@ -158,8 +168,8 @@ public class UserDAO extends MyDAO {
                 String description = rs.getNString("Description");
                 Date create_At = rs.getDate("Create_At");
 
-                user = new User(userID, userName, age, roleID, address, birthday,
-                        email, phoneNumber, image, description, create_At);
+                user = new User(userID, userName, password, fullName, age, roleID, address,
+                        birthday, email, phoneNumber, image, description, create_At);
             }
             ps.close();
             rs.close();

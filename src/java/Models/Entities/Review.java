@@ -11,7 +11,8 @@ import java.util.Date;
  * @author VIET
  */
 public class Review {
-    int itemID;
+
+    int reviewID;
     int userID;
     int BookID;
     Date fixDate;//Cần file log để ghi lại nội dung thay đổi
@@ -30,8 +31,8 @@ public class Review {
         this.Description = Description;
     }
 
-    public Review(int itemID, int userID, int BookID, Date fixDate, int readCount, String Description, Date create_At) {
-        this.itemID = itemID;
+    public Review(int reviewID, int userID, int BookID, Date fixDate, int readCount, String Description, Date create_At) {
+        this.reviewID = reviewID;
         this.userID = userID;
         this.BookID = BookID;
         this.fixDate = fixDate;
@@ -40,12 +41,12 @@ public class Review {
         this.create_At = create_At;
     }
 
-    public int getItemID() {
-        return itemID;
+    public int getReviewID() {
+        return reviewID;
     }
 
-    public void setItemID(int itemID) {
-        this.itemID = itemID;
+    public void setReviewID(int reviewID) {
+        this.reviewID = reviewID;
     }
 
     public int getUserID() {
@@ -95,6 +96,5 @@ public class Review {
     public void setCreate_At(Date create_At) {
         this.create_At = create_At;
     }
-    
-    
+
 }

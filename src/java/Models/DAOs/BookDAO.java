@@ -147,4 +147,100 @@ public class BookDAO extends MyDAO {
         return lists;
     }
 
+    public List<Book> getBooksByCategory(int cateID) {
+        List<Book> lists = new ArrayList<>();
+        xSql = "select b.* from Books b join BookCates bc on b.BookID = bc.BookID "
+                + "where bc.CategoryID = " + cateID;
+        try {
+            ps = con.prepareStatement(xSql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int bookID = rs.getInt("BookID");
+                int authorID = rs.getInt("AuthorID");
+                int publisherID = rs.getInt("PublisherID");
+                String bookName = rs.getNString("BookName");
+                String otherName = rs.getNString("OtherName");
+                int publicationYear = rs.getInt("PublicationYear");
+                int price = rs.getInt("Price");
+                String image = "data:image/jpeg;base64," + rs.getString("Image");
+                int page = rs.getInt("Page");
+                String description = rs.getNString("Description");
+                Date create_At = rs.getDate("Create_At");
+
+                Book book = new Book(bookID, authorID, publisherID, bookName, otherName,
+                        publicationYear, price, page, image, description, create_At);
+                lists.add(book);
+            }
+            ps.close();
+            rs.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return lists;
+    }
+
+    public List<Book> getBooksByBook(int bookIDMain) {
+        List<Book> lists = new ArrayList<>();
+        xSql = "select b.* from Books b join BookCates bc on b.BookID = bc.BookID "
+                + "join (select CategoryID from BookCates where BookID = "
+                + bookIDMain + ") as Temp on bc.CategoryID = Temp.CategoryID";
+        try {
+            ps = con.prepareStatement(xSql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int bookID = rs.getInt("BookID");
+                int authorID = rs.getInt("AuthorID");
+                int publisherID = rs.getInt("PublisherID");
+                String bookName = rs.getNString("BookName");
+                String otherName = rs.getNString("OtherName");
+                int publicationYear = rs.getInt("PublicationYear");
+                int price = rs.getInt("Price");
+                String image = "data:image/jpeg;base64," + rs.getString("Image");
+                int page = rs.getInt("Page");
+                String description = rs.getNString("Description");
+                Date create_At = rs.getDate("Create_At");
+
+                Book book = new Book(bookID, authorID, publisherID, bookName, otherName,
+                        publicationYear, price, page, image, description, create_At);
+                lists.add(book);
+            }
+            ps.close();
+            rs.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return lists;
+    }
+    
+    public List<Book> getBooksByPubLisher(int publisherIDMain) {
+        List<Book> lists = new ArrayList<>();
+        xSql = "select * from Books where PublisherID = " + publisherIDMain;
+        try {
+            ps = con.prepareStatement(xSql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int bookID = rs.getInt("BookID");
+                int authorID = rs.getInt("AuthorID");
+                int publisherID = rs.getInt("PublisherID");
+                String bookName = rs.getNString("BookName");
+                String otherName = rs.getNString("OtherName");
+                int publicationYear = rs.getInt("PublicationYear");
+                int price = rs.getInt("Price");
+                String image = "data:image/jpeg;base64," + rs.getString("Image");
+                int page = rs.getInt("Page");
+                String description = rs.getNString("Description");
+                Date create_At = rs.getDate("Create_At");
+
+                Book book = new Book(bookID, authorID, publisherID, bookName, otherName,
+                        publicationYear, price, page, image, description, create_At);
+                lists.add(book);
+            }
+            ps.close();
+            rs.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return lists;
+    }
+
 }
