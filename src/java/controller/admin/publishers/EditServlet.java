@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controller.admin.authors;
+package controller.admin.publishers;
 
-import Models.DAOs.AuthorDAO;
-import Models.Entities.Author;
+import Models.DAOs.PublisherDAO;
+import Models.Entities.Publisher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -23,36 +23,53 @@ import java.util.Base64;
  *
  * @author VIET
  */
-@WebServlet(urlPatterns = {"/admin/authors/create"})
+@WebServlet(urlPatterns = {"/admin/publisherEdit/*"})
 @MultipartConfig
-public class CreateServlet extends HttpServlet{
+public class EditServlet extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
         
-        String authorName = name((String) req.getParameter("author-name"));
-        int birthYear = Integer.parseInt(req.getParameter("author-birthYear"));
-        String image = image((Part) req.getPart("author-image"));
-        String description = (String) req.getParameter("author-description");
+        String path = req.getPathInfo();
+        int publisherID = Integer.parseInt(path.split("/")[1]);
         
-        Author a = new Author(authorName, birthYear, image, description);
+        String publisherName = name((String) req.getParameter("publisher-name"));
+        String address = name((String) req.getParameter("publisher-address"));
+        String email = (String) req.getParameter("publisher-email");
+        int establishYear = Integer.parseInt((String) req.getParameter("publisher-establishYear"));
+        String description = (String) req.getParameter("publisher-description");
+        String image = "";
+        Part part = (Part) req.getPart("publisher-image");
+        if (part.getSize() != 0) {
+            image = image(part);
+        } else {
+            image = req.getParameter("image").split("data:image/jpeg;base64,")[1];
+        }
         
-        AuthorDAO ad = new AuthorDAO();
-        ad.insert(a);
+        Publisher p = new Publisher(publisherID, publisherName, address, email, establishYear, description, image);
         
-        resp.sendRedirect("/TangKinhCac/admin/authors");
+        PublisherDAO pd = new PublisherDAO();
+        pd.update(p);
+        
+        resp.sendRedirect("/TangKinhCac/admin/publishers");
     }
-    
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        PrintWriter out = resp.getWriter();
-        out.print("here get");
+    PrintWriter out = resp.getWriter();
+        String path = req.getPathInfo();
+        int publisherID = Integer.parseInt(path.split("/")[1]);
         
+        PublisherDAO pd = new PublisherDAO();
+        Publisher p = pd.getOne(publisherID);
+        
+        req.setAttribute("p", p);
+        req.getRequestDispatcher("/admin/publishers/edit.jsp").forward(req, resp);
     }
     
     public String image(Part part) throws IOException {
-
+        
         long length = part.getSize();
         byte[] buffer = new byte[(int) length];
         InputStream inputStream = part.getInputStream();
@@ -80,5 +97,6 @@ public class CreateServlet extends HttpServlet{
             return newName;
         }
     }
+    
     
 }

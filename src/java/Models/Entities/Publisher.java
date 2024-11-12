@@ -32,6 +32,16 @@ public class Publisher {
         this.image = image;
     }
 
+    public Publisher(int publisherID, String publisherName, String address, String email, int establishYear, String description, String image) {
+        this.publisherID = publisherID;
+        this.publisherName = publisherName;
+        this.address = address;
+        this.email = email;
+        this.establishYear = establishYear;
+        this.description = description;
+        this.image = image;
+    }
+
     public Publisher(int publisherID, String publisherName, String address, String email, int establishYear, String description, String image, Date create_At) {
         this.publisherID = publisherID;
         this.publisherName = publisherName;

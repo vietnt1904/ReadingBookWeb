@@ -5,7 +5,6 @@
 package controller.admin.books;
 
 import Models.DAOs.AuthorDAO;
-import Models.DAOs.BookCateDAO;
 import Models.DAOs.BookDAO;
 import Models.DAOs.CategoryDAO;
 import Models.DAOs.PublisherDAO;
@@ -31,33 +30,39 @@ import java.util.List;
  *
  * @author VIET
  */
-@WebServlet(urlPatterns = {"/admin/books/create"})
+@WebServlet(urlPatterns = {"/admin/bookEdit/*"})
 @MultipartConfig
-public class CreateServlet extends HttpServlet {
+public class EditServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
-        resp.setContentType("text/html;charset=UTF-8");
+
+        String path = req.getPathInfo();
+        int bookID = Integer.parseInt(path.split("/")[1]);
 
         String bookName = name((String) req.getParameter("book-name"));
         String otherName = (String) req.getParameter("book-otherName");
         int publisherID = Integer.parseInt(req.getParameter("book-publisher"));
         int authorID = Integer.parseInt(req.getParameter("book-author"));
-        int categoryID = Integer.parseInt(req.getParameter("book-category"));
+//        int categoryID = Integer.parseInt(req.getParameter("book-category"));
         String description = (String) req.getParameter("book-description");
         int publicationYear = Integer.parseInt(req.getParameter("book-publicationYear"));
         int page = Integer.parseInt(req.getParameter("book-page"));
         int price = Integer.parseInt(req.getParameter("book-price"));
-        String image = this.image((Part) req.getPart("book-image"));
+        String image = "";
+        Part part = (Part) req.getPart("book-image");
+        if (part.getSize() != 0) {
+            image = image(part);
+        } else {
+            image = req.getParameter("image").split("data:image/jpeg;base64,")[1];
+        }
 
-        Book b = new Book(authorID, publisherID, bookName, otherName
-                , publicationYear, price, page, image, description);
-        BookDAO bd = new BookDAO();
-        bd.insert(b);
+        Book b = new Book(bookID, authorID, publisherID, bookName, otherName,
+                 publicationYear, price, page, image, description);
         
-        BookCateDAO bcd = new BookCateDAO();
-        bcd.insert(b, categoryID);
+        BookDAO bd = new BookDAO();
+        bd.update(b);
         
         resp.sendRedirect("/TangKinhCac/admin/books");
     }
@@ -65,6 +70,11 @@ public class CreateServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
+        String path = req.getPathInfo();
+        int bookID = Integer.parseInt(path.split("/")[1]);
+
+        BookDAO bd = new BookDAO();
+        Book b = bd.getOne(bookID);
 
         PublisherDAO pd = new PublisherDAO();
         List<Publisher> ps = pd.getAllPublishers();
@@ -78,7 +88,8 @@ public class CreateServlet extends HttpServlet {
         req.setAttribute("ps", ps);
         req.setAttribute("cs", cs);
         req.setAttribute("as", as);
-        req.getRequestDispatcher("/admin/books/create.jsp").forward(req, resp);
+        req.setAttribute("b", b);
+        req.getRequestDispatcher("/admin/books/edit.jsp").forward(req, resp);
     }
 
     public String image(Part part) throws IOException {

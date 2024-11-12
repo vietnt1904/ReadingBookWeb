@@ -48,7 +48,7 @@ public class BookDAO extends MyDAO {
 
     public List<Book> getAllBooks() {
         List<Book> lists = new ArrayList<>();
-        xSql = "select * from Books";
+        xSql = "select b.*, a.AuthorName from Books b, Authors a where b.AuthorID = a.AuthorID";
         try {
             ps = con.prepareStatement(xSql);
             rs = ps.executeQuery();
@@ -64,9 +64,10 @@ public class BookDAO extends MyDAO {
                 int page = rs.getInt("Page");
                 String description = rs.getNString("Description");
                 Date create_At = rs.getDate("Create_At");
+                String authorName = rs.getNString("AuthorName");
 
                 Book book = new Book(bookID, authorID, publisherID, bookName, otherName,
-                        publicationYear, price, page, image, description, create_At);
+                        publicationYear, price, page, image, description, create_At, authorName);
                 lists.add(book);
             }
             ps.close();
@@ -83,7 +84,7 @@ public class BookDAO extends MyDAO {
                 + b.getAuthorID() + ", " + b.getPublisherID() + ", N'"
                 + b.getBookName() + "', N'" + b.getOtherName() + "', "
                 + b.getPublicationYear() + ", " + b.getPrice() + ", '"
-                + b.getImage() + "', " + b.getPage() + ", N'" + b.getDescrtiption() + "')";
+                + b.getImage() + "', " + b.getPage() + ", N'" + b.getDescription() + "')";
         try {
             ps = con.prepareStatement(xSql);
             rs = ps.executeQuery();
@@ -101,7 +102,8 @@ public class BookDAO extends MyDAO {
                 + ", BookName = N'" + b.getBookName() + "', OtherName = N'"
                 + b.getOtherName() + "', PublicationYear = " + b.getPublicationYear()
                 + ", Price = " + b.getPrice() + ", Image = '" + b.getImage()
-                + "', Page = " + b.getPage() + ", Description = N'" + b.getDescrtiption() + "'";
+                + "', Page = " + b.getPage() + ", Description = N'" + b.getDescription() 
+                + "' where BookID = " + b.getBookID();
         try {
             ps = con.prepareStatement(xSql);
             rs = ps.executeQuery();
@@ -215,6 +217,37 @@ public class BookDAO extends MyDAO {
     public List<Book> getBooksByPubLisher(int publisherIDMain) {
         List<Book> lists = new ArrayList<>();
         xSql = "select * from Books where PublisherID = " + publisherIDMain;
+        try {
+            ps = con.prepareStatement(xSql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int bookID = rs.getInt("BookID");
+                int authorID = rs.getInt("AuthorID");
+                int publisherID = rs.getInt("PublisherID");
+                String bookName = rs.getNString("BookName");
+                String otherName = rs.getNString("OtherName");
+                int publicationYear = rs.getInt("PublicationYear");
+                int price = rs.getInt("Price");
+                String image = "data:image/jpeg;base64," + rs.getString("Image");
+                int page = rs.getInt("Page");
+                String description = rs.getNString("Description");
+                Date create_At = rs.getDate("Create_At");
+
+                Book book = new Book(bookID, authorID, publisherID, bookName, otherName,
+                        publicationYear, price, page, image, description, create_At);
+                lists.add(book);
+            }
+            ps.close();
+            rs.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return lists;
+    }
+    
+    public List<Book> getBooksByAuthor(int authorIDMain) {
+        List<Book> lists = new ArrayList<>();
+        xSql = "select * from Books where AuthorID = " + authorIDMain;
         try {
             ps = con.prepareStatement(xSql);
             rs = ps.executeQuery();

@@ -2,10 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controller.admin.categories;
+package controller.admin.publishers;
 
 import Models.DAOs.CategoryDAO;
+import Models.DAOs.PublisherDAO;
 import Models.Entities.Category;
+import Models.Entities.Publisher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -19,29 +21,29 @@ import java.util.List;
  *
  * @author VIET
  */
-@WebServlet(urlPatterns = {"/admin/categories"})
-public class ListServlet extends HttpServlet {
-
+@WebServlet(urlPatterns = {"/admin/publishers"})
+public class ListServlet extends HttpServlet{
+    
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
 
-        CategoryDAO cd = new CategoryDAO();
-        List<Category> list = cd.getAllCategories();
+        PublisherDAO cd = new PublisherDAO();
+        List<Publisher> list = cd.getAllPublishers();
 
         req.setAttribute("list", list);
-        req.getRequestDispatcher("categories.jsp").forward(req, resp);
+        req.getRequestDispatcher("publishers.jsp").forward(req, resp);
     }
-
+    
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
 
-        CategoryDAO cd = new CategoryDAO();
-        List<Category> list = cd.getAllCategories();
+        PublisherDAO cd = new PublisherDAO();
+        List<Publisher> list = cd.getAllPublishers();
 
         req.setAttribute("list", list);
-        req.getRequestDispatcher("categories.jsp").forward(req, resp);
+        req.getRequestDispatcher("publishers.jsp").forward(req, resp);
     }
-
+    
 }

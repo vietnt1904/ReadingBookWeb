@@ -28,6 +28,14 @@ public class Author {
         this.description = description;
     }
 
+    public Author(int authorID, String authorName, int birthYear, String image, String description) {
+        this.authorID = authorID;
+        this.authorName = authorName;
+        this.birthYear = birthYear;
+        this.image = image;
+        this.description = description;
+    }
+
     public Author(int authorID, String authorName, int birthYear, String image, String description, Date create_At) {
         this.authorID = authorID;
         this.authorName = authorName;
@@ -36,7 +44,7 @@ public class Author {
         this.description = description;
         this.create_At = create_At;
     }
-
+    
     public int getAuthorID() {
         return authorID;
     }

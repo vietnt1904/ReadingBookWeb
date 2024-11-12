@@ -48,7 +48,8 @@ public class PublisherDAO extends MyDAO {
     public void insert(Publisher p) {
         xSql = "insert into Publishers(PublisherName, Address, Email, EstablishYear"
                 + ", Description, Image) values (N'" + p.getPublisherName() + "', N'"
-                + p.getAddress() + "', N'" + p.getEmail() + "', '" + p.getImage() + "')";
+                + p.getAddress() + "', N'" + p.getEmail() + "', " + p.getEstablishYear() 
+                + ", N'" + p.getDescription() + "', '" + p.getImage() + "')";
         try {
             ps = con.prepareStatement(xSql);
             rs = ps.executeQuery();
@@ -63,8 +64,9 @@ public class PublisherDAO extends MyDAO {
     public void update(Publisher p) {
         xSql = "update Publishers set PublisherName = N'" + p.getPublisherName()
                 + "', Address = N'" + p.getAddress() + "', Email = N'"
-                + p.getEmail() + "', Image = '" + p.getImage()
-                + "' where PublisherID = " + p.getPublisherID();
+                + p.getEmail() + "', EstablishYear = " + p.getEstablishYear() 
+                + ", Description = N'" + p.getDescription() + "', Image = '" 
+                + p.getImage() + "' where PublisherID = " + p.getPublisherID();
         try {
             ps = con.prepareStatement(xSql);
             rs = ps.executeQuery();

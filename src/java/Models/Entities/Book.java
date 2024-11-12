@@ -20,13 +20,14 @@ public class Book {
     int price;
     int page;
     String image;
-    String descrtiption;
+    String description;
     Date create_At;
+    String authorName;
 
     public Book() {
     }
 
-    public Book(int authorID, int publisherID, String bookName, String otherName, int publicationYear, int price, int page, String image, String descrtiption) {
+    public Book(int authorID, int publisherID, String bookName, String otherName, int publicationYear, int price, int page, String image, String description) {
         this.authorID = authorID;
         this.publisherID = publisherID;
         this.bookName = bookName;
@@ -35,10 +36,10 @@ public class Book {
         this.price = price;
         this.page = page;
         this.image = image;
-        this.descrtiption = descrtiption;
+        this.description = description;
     }
 
-    public Book(int bookID, int authorID, int publisherID, String bookName, String otherName, int publicationYear, int price, int page, String image, String descrtiption, Date create_At) {
+    public Book(int bookID, int authorID, int publisherID, String bookName, String otherName, int publicationYear, int price, int page, String image, String description) {
         this.bookID = bookID;
         this.authorID = authorID;
         this.publisherID = publisherID;
@@ -48,10 +49,38 @@ public class Book {
         this.price = price;
         this.page = page;
         this.image = image;
-        this.descrtiption = descrtiption;
+        this.description = description;
+    }
+
+    public Book(int bookID, int authorID, int publisherID, String bookName, String otherName, int publicationYear, int price, int page, String image, String description, Date create_At) {
+        this.bookID = bookID;
+        this.authorID = authorID;
+        this.publisherID = publisherID;
+        this.bookName = bookName;
+        this.otherName = otherName;
+        this.publicationYear = publicationYear;
+        this.price = price;
+        this.page = page;
+        this.image = image;
+        this.description = description;
         this.create_At = create_At;
     }
 
+    public Book(int bookID, int authorID, int publisherID, String bookName, String otherName, int publicationYear, int price, int page, String image, String description, Date create_At, String authorName) {
+        this.bookID = bookID;
+        this.authorID = authorID;
+        this.publisherID = publisherID;
+        this.bookName = bookName;
+        this.otherName = otherName;
+        this.publicationYear = publicationYear;
+        this.price = price;
+        this.page = page;
+        this.image = image;
+        this.description = description;
+        this.create_At = create_At;
+        this.authorName = authorName;
+    }
+    
     public int getBookID() {
         return bookID;
     }
@@ -124,12 +153,12 @@ public class Book {
         this.image = image;
     }
 
-    public String getDescrtiption() {
-        return descrtiption;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescrtiption(String descrtiption) {
-        this.descrtiption = descrtiption;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getCreate_At() {
@@ -138,6 +167,14 @@ public class Book {
 
     public void setCreate_At(Date create_At) {
         this.create_At = create_At;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
     }
 
     

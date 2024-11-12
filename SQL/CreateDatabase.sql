@@ -43,7 +43,6 @@ create table Categories(
 	CategoryID int IDENTITY(1,1),
 	CategoryName nvarchar(200),
 	Description nvarchar(4000),
-	Image varchar(max),
 	Create_At datetime default(getdate()),
 	primary key (CategoryID)
 )

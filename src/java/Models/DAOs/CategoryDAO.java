@@ -26,10 +26,9 @@ public class CategoryDAO extends MyDAO {
                 int categoryID = rs.getInt("CategoryID");
                 String categoryName = rs.getNString("CategoryName");
                 String description = rs.getNString("Description");
-                String image = "data:image/jpeg;base64," + rs.getString("Image");
                 Date create_At = rs.getDate("Create_At");
 
-                category = new Category(categoryID, categoryName, description, image, create_At);
+                category = new Category(categoryID, categoryName, description, create_At);
             }
             ps.close();
             rs.close();
@@ -40,8 +39,8 @@ public class CategoryDAO extends MyDAO {
     }
 
     public void insert(Category c) {
-        xSql = "insert into Categories(CategoryName, Description, Image) values (N'"
-                + c.getCategoryName() + "', N'" + c.getDescription() + "', '" + c.getImage() + "')";
+        xSql = "insert into Categories(CategoryName, Description) values (N'"
+                + c.getCategoryName() + "', N'" + c.getDescription() + "')";
         try {
             ps = con.prepareStatement(xSql);
             rs = ps.executeQuery();
@@ -55,8 +54,8 @@ public class CategoryDAO extends MyDAO {
     
     public void update(Category c) {
         xSql = "update Categories set CategoryName = N'" + c.getCategoryName() 
-                + "', Description = N'" + c.getDescription() + "', Image = '" 
-                + c.getImage() + "' where CategoryID = " + c.getCategoryID();
+                + "', Description = N'" + c.getDescription() 
+                + "' where CategoryID = " + c.getCategoryID();
         try {
             ps = con.prepareStatement(xSql);
             rs = ps.executeQuery();
@@ -91,10 +90,9 @@ public class CategoryDAO extends MyDAO {
                 int categoryID = rs.getInt("CategoryID");
                 String categoryName = rs.getNString("CategoryName");
                 String description = rs.getNString("Description");
-                String image = "data:image/jpeg;base64," + rs.getString("Image");
                 Date create_At = rs.getDate("Create_At");
 
-                Category category = new Category(categoryID, categoryName, description, image, create_At);
+                Category category = new Category(categoryID, categoryName, description, create_At);
                 lists.add(category);
             }
             ps.close();
